@@ -702,9 +702,6 @@ function processOptions(options) {
     if (typeof minifyCSS !== 'object') {
       minifyCSS = {};
     }
-    if (typeof minifyCSS.advanced === 'undefined') {
-      minifyCSS.advanced = false;
-    }
     options.minifyCSS = function(text) {
       text = text.replace(/(url\s*\(\s*)("|'|)(.*?)\2(\s*\))/ig, function(match, prefix, quote, url, suffix) {
         return prefix + quote + options.minifyURLs(url) + quote + suffix;
