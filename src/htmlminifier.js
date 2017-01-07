@@ -706,10 +706,8 @@ function processOptions(options) {
       text = text.replace(/(url\s*\(\s*)("|'|)(.*?)\2(\s*\))/ig, function(match, prefix, quote, url, suffix) {
         return prefix + quote + options.minifyURLs(url) + quote + suffix;
       });
-      var start = text.match(/^\s*<!--/);
-      var style = start ? text.slice(start[0].length).replace(/-->\s*$/, '') : text;
       try {
-        return new CleanCSS(minifyCSS).minify(style).styles;
+        return new CleanCSS(minifyCSS).minify(text).styles;
       }
       catch (err) {
         options.log(err);
