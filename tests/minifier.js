@@ -595,7 +595,7 @@ QUnit.test('remove comments from styles', function(assert) {
 
   input = '<style>p.h{background:red}<!--\np.i{background:red}\n-->p.j{background:red}</style>';
   assert.equal(minify(input), input);
-  output = '<style>p.h{background:red}<!-- p.i{background:red}-->p.j{background:red}</style>';
+  output = '<style>p.h{background:red}p.i{background:red}p.j{background:red}</style>';
   assert.equal(minify(input, { minifyCSS: true }), output);
 
   input = '<style type="text/css"><!-- p { color: red } --></style>';
@@ -658,32 +658,32 @@ QUnit.test('remove CDATA sections from scripts/styles', function(assert) {
 
   input = '<style><![CDATA[\np.a{background:red}\n]]></style>';
   assert.equal(minify(input), input);
-  output = '<style><![CDATA[ p.a{background:red}\n]]></style>';
+  output = '<style></style>';
   assert.equal(minify(input, { minifyCSS: true }), output);
 
   input = '<style><![CDATA[p.b{background:red}]]></style>';
   assert.equal(minify(input), input);
-  output = '<style><![CDATA[p.b{background:red}]]></style>';
+  output = '<style></style>';
   assert.equal(minify(input, { minifyCSS: true }), output);
 
   input = '<style><![CDATA[p.c{background:red}\n]]></style>';
   assert.equal(minify(input), input);
-  output = '<style><![CDATA[p.c{background:red}\n]]></style>';
+  output = '<style></style>';
   assert.equal(minify(input, { minifyCSS: true }), output);
 
   input = '<style><![CDATA[\np.d{background:red}]]></style>';
   assert.equal(minify(input), input);
-  output = '<style><![CDATA[ p.d{background:red}]]></style>';
+  output = '<style></style>';
   assert.equal(minify(input, { minifyCSS: true }), output);
 
   input = '<style><![CDATA[p.e{background:red}\np.f{background:red}\np.g{background:red}]]></style>';
   assert.equal(minify(input), input);
-  output = '<style><![CDATA[p.e{background:red}p.f{background:red}p.g{background:red}]]></style>';
+  output = '<style>p.f{background:red}p.g{background:red}</style>';
   assert.equal(minify(input, { minifyCSS: true }), output);
 
   input = '<style>p.h{background:red}<![CDATA[\np.i{background:red}\n]]>p.j{background:red}</style>';
   assert.equal(minify(input), input);
-  output = '<style>p.h{background:red}<![CDATA[ p.i{background:red}]]>p.j{background:red}</style>';
+  output = '<style>p.h{background:red}]]>p.j{background:red}</style>';
   assert.equal(minify(input, { minifyCSS: true }), output);
 
   input = '<style>/* <![CDATA[ */p { color: red } // ]]></style>';
